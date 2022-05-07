@@ -1,12 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import { NavBar } from './components/NavBar';
+import { SearchBar } from './components/SearchBar';
 
 function App() {
   return (
-    
-    <NavBar/>
-  
+    <div>
+      <NavBar />
+      <SearchBar />
+      <div className='App'>
+
+      </div>
+    </div>
   );
 }
 

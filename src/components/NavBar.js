@@ -1,6 +1,6 @@
 import navIcon from '../pokeapi_256.png'
 
-export const NavBar = () => {
+export const NavBar = ({onSearch}) => {
     return (
         <nav>
             <div>

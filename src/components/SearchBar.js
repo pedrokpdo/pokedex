@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const SearchBar = () => {
+export const SearchBar = ({onSearch}) => {
     const [search, SetSearch] = useState('')
     console.log(search);
     const onChange = (e) => {
@@ -9,7 +9,7 @@ export const SearchBar = () => {
     }
 
     const onButtonClickHandler = () => {
-        console.log('Pokemon', search);
+        onSearch(search)
     }
 
 

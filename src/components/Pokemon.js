@@ -1,5 +1,7 @@
-export const Pokemon = () => {
+export const Pokemon = ({ pokemon,}) => {
     return (
-        <h1>Ola</h1>
+        <div>
+                ola
+        </div>
     )
 }

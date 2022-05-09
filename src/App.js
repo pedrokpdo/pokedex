@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPokemons } from './api';
+import { getPokemonData, getPokemons } from './api';
 import './App.css';
 import { NavBar } from './components/NavBar';
 import { PokeDex } from './components/PokeDex';
@@ -12,8 +12,13 @@ function App() {
   const fetchPokemons = async () => {
     try {
       setLoading(true)
-      const result = await getPokemons()
-      setPokemons(result)
+      const data = await getPokemons()
+      const promises = data.results.map(async (pokemon) => {
+        return await getPokemonData(pokemon.url)
+      })
+
+      const results = Promise.all(promises)
+      setPokemons(results)
       setLoading(false)
     } catch (error) {
       console.log(error);

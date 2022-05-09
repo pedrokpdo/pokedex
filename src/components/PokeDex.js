@@ -1,4 +1,5 @@
 import React from "react";
+import { Pokemon } from "./Pokemon";
 
 export const PokeDex = ({ pokemons, loading }) => {
     return (
@@ -11,10 +12,7 @@ export const PokeDex = ({ pokemons, loading }) => {
                 (<div className="pokedex-grid">
                     {pokemons && pokemons.map((pokemon) => {
                         return (
-                            <div>
-                                <div>{pokemon.name}</div>
-                                <img src={pokemon.url}/>
-                            </div>
+                        <Pokemon key={pokemon.id} pokemon={pokemon}/>
                         )
                     })}
                 </div>)

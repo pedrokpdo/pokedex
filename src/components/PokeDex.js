@@ -9,7 +9,14 @@ export const PokeDex = ({ pokemons, loading }) => {
             </div>
             {loading ? (<div>Carregando, Segura aí.</div>) :
                 (<div className="pokedex-grid">
-                     
+                    {pokemons && pokemons.map((pokemon) => {
+                        return (
+                            <div>
+                                <div>{pokemon.name}</div>
+                                <img src={pokemon.url}/>
+                            </div>
+                        )
+                    })}
                 </div>)
             }
         </div>

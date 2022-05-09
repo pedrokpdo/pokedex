@@ -24,13 +24,13 @@ function App() {
   useEffect(() => {
     console.log('carregou');
     fetchPokemons()
-  },[pokemons])
+  },[])
 
   return (
     <div>
       <NavBar />
       <SearchBar />
-      <PokeDex pokemons={pokemons} loading={loading}/>
+      <PokeDex pokemons={pokemons.results} loading={loading}/>
     </div>
   );
 }

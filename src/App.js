@@ -6,13 +6,17 @@ import { PokeDex } from './components/PokeDex';
 import { SearchBar } from './components/SearchBar';
 
 function App() {
+  const [page, setPage] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
   const [loading, setLoading] = useState(false)
   const [pokemons, setPokemons] = useState([])
 
+  const itensPerPage = 25
   const fetchPokemons = async () => {
     try {
       setLoading(true)
-      const data = await getPokemons()
+      const data = await getPokemons(itensPerPage, itensPerPage * page)
+
       const promises = data.results.map(async (pokemon) => {
         return await getPokemonData(pokemon.url)
       })
@@ -20,6 +24,7 @@ function App() {
       const results = await Promise.all(promises)
       setPokemons(results)
       setLoading(false)
+      setTotalPages(Math.ceil(data.count / itensPerPage))
     } catch (error) {
       console.log(error);
     }
@@ -29,13 +34,13 @@ function App() {
   useEffect(() => {
     console.log('carregou');
     fetchPokemons()
-  },[])
+  },[page])
 
   return (
     <div>
       <NavBar />
       <SearchBar />
-      <PokeDex pokemons={pokemons} loading={loading}/>
+      <PokeDex pokemons={pokemons} loading={loading} page={page} totalPages={totalPages} setPage={setPage}/>
     </div>
   );
 }

@@ -115,5 +115,20 @@ text-transform: capitalize;
   display: flex;
   flex-direction: row;
   align-items: center;
-  
+
+}
+
+.notfound-text {
+  text-align: center;
+  font-size: 1.25rem;
+  padding: 20px;
+}
+
+.pokemon-heart-btn {
+  border: none;
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px black;
+  padding: 4px;
+  cursor: pointer;
+  align-items: center;
 }

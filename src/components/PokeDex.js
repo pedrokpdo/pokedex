@@ -12,7 +12,7 @@ export const PokeDex = ({ pokemons, loading }) => {
                 (<div className="pokedex-grid">
                     {pokemons && pokemons.map((pokemon) => {
                         return (
-                        <Pokemon key={pokemon.id} pokemon={pokemon}/>
+                        <Pokemon pokemon={pokemon}/>
                         )
                     })}
                 </div>)

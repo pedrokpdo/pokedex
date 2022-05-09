@@ -1,7 +1,8 @@
-export const Pokemon = ({ pokemon,}) => {
+export const Pokemon = ({ pokemon}) => {
     return (
-        <div>
-                ola
+        <div className="pokemon-card">
+            <div className="pokemon-image-container"></div>
+            {pokemon.name}
         </div>
     )
 }

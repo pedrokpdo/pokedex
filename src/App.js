@@ -17,7 +17,7 @@ function App() {
         return await getPokemonData(pokemon.url)
       })
 
-      const results = Promise.all(promises)
+      const results = await Promise.all(promises)
       setPokemons(results)
       setLoading(false)
     } catch (error) {
@@ -35,7 +35,7 @@ function App() {
     <div>
       <NavBar />
       <SearchBar />
-      <PokeDex pokemons={pokemons.results} loading={loading}/>
+      <PokeDex pokemons={pokemons} loading={loading}/>
     </div>
   );
 }

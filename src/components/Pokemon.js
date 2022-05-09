@@ -1,10 +1,13 @@
+import { useContext } from "react"
 import { getPokemons } from "../api"
+import FavoriteContext from "../contexts/favoritesContext"
 
 export const Pokemon = ({ pokemon }) => {
+    const {favoritePokemons, updateFavoritePokemons} = useContext(FavoriteContext)
     const onHeartClick = () => {
-        console.log('pode favoritar')
+        updateFavoritePokemons(pokemon.name)        
     }
-    const heart = '💜'
+    const heart = favoritePokemons.includes(pokemon.name)?'💜' : '🖤'
 
     return (
 

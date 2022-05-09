@@ -37,7 +37,7 @@ export const SearchBar = () => {
                     <div>Peso: {pokemon.weight}</div>
                     <img src={pokemon.sprites.front_default} alt='pokemon' />
                 </div>
-            ) : null}
+            ) : 'pokemon invalido'}
         </div>
     )
 }

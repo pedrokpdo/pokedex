@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPokemonData, getPokemons } from './api';
+import { getPokemonData, getPokemons, searchPokemon } from './api';
 import './App.css';
 import { NavBar } from './components/NavBar';
 import { PokeDex } from './components/PokeDex';
@@ -11,6 +11,7 @@ function App() {
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [notFound, setNotFound] = useState(false)
   const [pokemons, setPokemons] = useState([])
   const [favorites, setFavorites] = useState([])
 
@@ -36,7 +37,7 @@ function App() {
   }
 
   const loadFavoritePokemons = () => {
-    const pokemons =  JSON.parse(window.localStorage.getItem(favoritesKey)) || []
+    const pokemons = JSON.parse(window.localStorage.getItem(favoritesKey)) || []
     setFavorites(pokemons)
   }
   useEffect(() => {
@@ -51,7 +52,7 @@ function App() {
   const updateFavoritePokemons = (name) => {
     const updatedFavorites = [...favorites]
     const favoriteIndex = favorites.indexOf(name)
-    if(favoriteIndex >=0) {
+    if (favoriteIndex >= 0) {
       updatedFavorites.splice(favoriteIndex, 1)
     } else {
       updatedFavorites.push(name)
@@ -60,21 +61,47 @@ function App() {
     setFavorites(updatedFavorites)
   }
 
+  const onSearchHandler = async (pokemon) => {
+    if (!pokemon) {
+      return fetchPokemons()
+    }
+    setLoading(true)
+    setNotFound(false)
+    const result = await searchPokemon(pokemon)
+    if (!result) {
+
+      setNotFound(true)
+    } else {
+      setPokemons([result])
+      setPage(0)
+      setTotalPages(1)
+    }
+    setLoading(false)
+
+  }
+
   return (
-    <FavotiteProvider value={{ 
-      favoritePokemons: favorites, 
-      updateFavoritePokemons:  updateFavoritePokemons,
-       }}>
+    <FavotiteProvider value={{
+      favoritePokemons: favorites,
+      updateFavoritePokemons: updateFavoritePokemons,
+    }}>
       <div>
         <NavBar />
-        <SearchBar />
-        <PokeDex
-          pokemons={pokemons}
-          loading={loading}
-          page={page}
-          totalPages={totalPages}
-          setPage={setPage}
-           />
+        <SearchBar onSearchHandler={onSearchHandler} />
+        {notFound ? (
+          <div className='notfound-text'>Serio Isso?</div>
+        ) :
+          (
+            <PokeDex
+              pokemons={pokemons}
+              loading={loading}
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
+            />
+          )
+        }
+
       </div>
     </FavotiteProvider>
   );
